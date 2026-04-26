@@ -29,21 +29,6 @@ Cette application Android permet de gérer une liste d'étudiants stockée local
 
 > La vidéo ci-dessous présente le fonctionnement complet du lab SQLite.
 
-### Ce que montre la démo
-
-| Timestamp | Action démontrée |
-|-----------|-----------------|
-| `00:00` | Lancement de l'application |
-| `00:10` | Saisie du nom et prénom d'un étudiant |
-| `00:20` | Clic sur **Valider** — ajout dans SQLite |
-| `00:30` | Vérification via Logcat (liste complète) |
-| `00:45` | Saisie d'un ID dans le champ ID |
-| `00:55` | Clic sur **Chercher** — affichage du résultat |
-| `01:10` | Clic sur **Supprimer** — confirmation de suppression |
-| `01:25` | Nouvelle recherche de l'ID supprimé — "introuvable" |
-
-### 📹 Vidéo démonstrative :
-
 
 
 https://github.com/user-attachments/assets/0a5abfe6-dba3-4872-a7b9-15e7b17f79dc
