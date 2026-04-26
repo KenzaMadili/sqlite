@@ -1,101 +1,235 @@
-# 🌟 Stars Gallery - Android Application
+# 📱 Lab Android — Gestion des Étudiants avec SQLite
 
-## 📱 Description du projet
-
-**Stars Gallery** est une application Android permettant d’afficher une liste d’acteurs et d’actrices avec leurs images et leurs notes.
-L’utilisateur peut rechercher une star, modifier sa note et partager l’application.
+> Application Android de gestion d'étudiants utilisant une base de données locale SQLite.  
+> Aucune connexion réseau requise — tout fonctionne en local sur l'appareil.
 
 ---
 
-## 🚀 Fonctionnalités principales
+## 📋 Table des matières
 
-* 🔍 **Recherche dynamique** des stars via SearchView
-* ⭐ **Affichage des notes** avec RatingBar
-* ✏️ **Modification de la note** via popup interactif
-* 🔗 **Partage de l’application** via Intent (WhatsApp, Gmail, etc.)
-* 🖼 **Chargement des images** avec Glide
-* 📜 **Affichage fluide** avec RecyclerView
-
----
-
-## 🧱 Architecture
-
-L’application est structurée en plusieurs couches :
-
-* **UI (Activities)** : SplashActivity, ListActivity
-* **Adapter** : StarAdapter (RecyclerView + Filter + Popup)
-* **Service** : StarService (gestion des données)
-* **Model** : classe Star
+- [Aperçu](#aperçu)
+- [Démonstration vidéo](#démonstration-vidéo)
+- [Fonctionnalités](#fonctionnalités)
+- [Architecture du projet](#architecture-du-projet)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Structure des fichiers](#structure-des-fichiers)
+- [Base de données](#base-de-données)
+- [Utilisation](#utilisation)
 
 ---
 
-## 🛠 Technologies utilisées
+## Aperçu
 
-* Java
-* Android SDK
-* RecyclerView
-* Glide
-* SearchView
-* AlertDialog
-* CircleImageView
+Cette application Android permet de gérer une liste d'étudiants stockée localement grâce à **SQLite**, le système de base de données embarqué d'Android. Elle permet d'ajouter, rechercher et supprimer des étudiants sans aucune connexion Internet.
 
 ---
 
+## 🎬 Démonstration vidéo
+
+> La vidéo ci-dessous présente le fonctionnement complet du lab SQLite.
+
+### Ce que montre la démo
+
+| Timestamp | Action démontrée |
+|-----------|-----------------|
+| `00:00` | Lancement de l'application |
+| `00:10` | Saisie du nom et prénom d'un étudiant |
+| `00:20` | Clic sur **Valider** — ajout dans SQLite |
+| `00:30` | Vérification via Logcat (liste complète) |
+| `00:45` | Saisie d'un ID dans le champ ID |
+| `00:55` | Clic sur **Chercher** — affichage du résultat |
+| `01:10` | Clic sur **Supprimer** — confirmation de suppression |
+| `01:25` | Nouvelle recherche de l'ID supprimé — "introuvable" |
+
+### 📹 Vidéo démonstrative :
 
 
-## 🎥 Vidéo démonstrative (compressée)
 
-Une vidéo démonstrative du fonctionnement de l’application est incluse dans le projet.
+https://github.com/user-attachments/assets/0a5abfe6-dba3-4872-a7b9-15e7b17f79dc
 
-### 📁 Emplacement
+
+
+---
+
+## ✅ Fonctionnalités
+
+- ➕ **Ajouter** un étudiant (nom + prénom) → stockage SQLite automatique
+- 🔍 **Rechercher** un étudiant par son ID
+- 🗑️ **Supprimer** un étudiant par son ID
+- 💬 Messages **Toast** pour confirmer chaque action
+- 🛡️ Validation des champs (champs vides, ID invalide)
+
+---
+
+## 🏗️ Architecture du projet
 
 ```
-demo_stars.mp4
+com.example.sqlite/
+│
+├── MainActivity.java                  ← Activité principale (UI + logique)
+│
+├── projet.fst.ma.app.classes/
+│   └── Etudiant.java                  ← Modèle de données
+│
+├── projet.fst.ma.app.service/
+│   └── EtudiantService.java           ← Opérations CRUD SQLite
+│
+└── projet.fst.ma.app.util/
+    └── MySQLiteHelper.java            ← Création & gestion de la BDD
 ```
 
-### 📌 Contenu de la vidéo
+### Schéma des couches
 
-La vidéo montre :
-
-* L’écran de démarrage (Splash Screen)
-* L’affichage de la liste des stars
-* La recherche dynamique
-* La modification de la note via popup
-* Le partage de l’application
-
-### ⚙️ Compression de la vidéo
-
-La vidéo a été compressée pour :
-
-* Réduire la taille du projet
-* Faciliter le partage et le dépôt
-
----
-
-## 👩‍💻 Auteur
-
-* Nom : *Madili Kenza*
-* Projet académique Android
+```
+┌─────────────────────────┐
+│      MainActivity       │  ← Interface utilisateur
+└──────────┬──────────────┘
+           │
+┌──────────▼──────────────┐
+│    EtudiantService      │  ← Logique métier (CRUD)
+└──────────┬──────────────┘
+           │
+┌──────────▼──────────────┐
+│    MySQLiteHelper       │  ← Gestion de la base SQLite
+└──────────┬──────────────┘
+           │
+┌──────────▼──────────────┐
+│   Base SQLite locale    │  ← Fichier ecole.db sur l'appareil
+└─────────────────────────┘
+```
 
 ---
 
-## 📌 Conclusion
+## 🔧 Prérequis
 
-Ce projet illustre :
+| Outil | Version recommandée |
+|-------|-------------------|
+| Android Studio | Hedgehog ou supérieur |
+| JDK | 11 ou supérieur |
+| Android SDK | API 26 minimum |
+| Appareil / Émulateur | Android 8.0+ |
 
-* l’utilisation de RecyclerView
-* l’intégration d’une recherche dynamique
-* la manipulation des données
-* l’interaction utilisateur avec popup
+---
+
+## 🚀 Installation
+
+1. **Cloner ou télécharger** le projet
+
+```bash
+git clone https://github.com/votre-user/lab-sqlite-android.git
+```
+
+2. **Ouvrir** le projet dans Android Studio :
+   `File → Open → sélectionner le dossier du projet`
+
+3. **Synchroniser** Gradle :
+   `File → Sync Project with Gradle Files`
+
+4. **Lancer** l'application :
+   - Sur émulateur : cliquer sur ▶ Run
+   - Sur téléphone : activer le mode développeur + USB debugging
+
+> Aucune dépendance externe requise — SQLite est intégré nativement dans Android.
 
 ---
 
-## 📎 Remarque
+## 📁 Structure des fichiers
 
-Assurez-vous que :
-
-* les dépendances Gradle sont synchronisées
-* les images sont bien placées dans `drawable`
-* la vidéo est bien compressée pour éviter un projet trop lourd
+```
+app/
+├── manifests/
+│   └── AndroidManifest.xml
+│
+├── java/
+│   ├── com/example/sqlite/
+│   │   └── MainActivity.java
+│   │
+│   └── projet/fst/ma/app/
+│       ├── classes/
+│       │   └── Etudiant.java
+│       ├── service/
+│       │   └── EtudiantService.java
+│       └── util/
+│           └── MySQLiteHelper.java
+│
+└── res/
+    ├── layout/
+    │   └── activity_main.xml
+    ├── drawable/
+    │   └── card_background.xml
+    └── values/
+        ├── strings.xml
+        └── styles.xml
+```
 
 ---
+
+## 🗄️ Base de données
+
+**Nom :** `ecole.db`  
+**Emplacement sur l'appareil :** `/data/data/com.example.sqlite/databases/ecole.db`
+
+### Table `etudiant`
+
+| Colonne | Type | Contrainte |
+|---------|------|-----------|
+| `id` | INTEGER | PRIMARY KEY AUTOINCREMENT |
+| `nom` | TEXT | — |
+| `prenom` | TEXT | — |
+
+### Requête de création
+
+```sql
+CREATE TABLE etudiant (
+    id      INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom     TEXT,
+    prenom  TEXT
+);
+```
+
+### Opérations CRUD disponibles
+
+| Méthode | Description |
+|---------|-------------|
+| `create(Etudiant e)` | Insère un nouvel étudiant |
+| `findById(int id)` | Recherche par ID |
+| `findAll()` | Retourne tous les étudiants |
+| `update(Etudiant e)` | Met à jour un étudiant |
+| `delete(Etudiant e)` | Supprime un étudiant |
+
+---
+
+## 📖 Utilisation
+
+### Ajouter un étudiant
+
+1. Remplir les champs **Nom** et **Prénom**
+2. Cliquer sur **Valider**
+3. Un message de confirmation s'affiche
+4. Les champs se vident automatiquement
+
+### Rechercher un étudiant
+
+1. Saisir l'**ID** dans le champ ID
+2. Cliquer sur **Chercher**
+3. Les informations s'affichent dans la zone résultat
+
+### Supprimer un étudiant
+
+1. Saisir l'**ID** dans le champ ID
+2. Cliquer sur **Supprimer**
+3. Confirmation de suppression affichée
+
+---
+
+## 👨‍💻 Auteur
+
+> Réalisé par : Madili Kenza  
+> Module : Développement Mobile  
+
+---
+
+## 📄 Licence
+
+Ce lab est réalisé à des fins pédagogiques.
